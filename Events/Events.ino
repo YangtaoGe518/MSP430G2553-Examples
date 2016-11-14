@@ -23,7 +23,7 @@ Benn Thomsen, November 2016
 */
 
 
-#define DEBOUNCE_TIME 50   // Time to wait after last detected edge. (This such be adjusted so that it is lon
+#define DEBOUNCE_TIME 1000   // Time to wait after last detected edge. (This such be adjusted so that it is lon
 #define S2 5               // Switch 2 (S2) is connected to pin 5 on the MSP430G2553
 #define OFF 0              // Green LED OFF state
 #define ON 1               // Green LED ON  state
