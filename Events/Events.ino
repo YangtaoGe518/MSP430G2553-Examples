@@ -71,16 +71,20 @@ void loop()
     Serial.println(fall_count);             // send falling edge count to serial port
     fall_count = 0;                         // Reset falling edge count
     pressed = true;                         // set flag to indicate that switch is pressed
-    attachInterrupt(S2, rising, RISING);    // Attach rising edge Interrupt to detect release of switch
-    digitalWrite(RED_LED,HIGH);             // turn RED LED on to indicate switch is pressed
+    if (!digitalRead(S2)) {
+      attachInterrupt(S2, rising, RISING);    // Attach rising edge Interrupt to detect release of switch
+      digitalWrite(RED_LED,HIGH);             // turn RED LED on to indicate switch is pressed
+    }
   }
   
   if (rise_count && ((millis() - last_time) > DEBOUNCE_TIME)) {
     Serial.print("Switch released. Count: ");
     Serial.println(rise_count);             // send rising edge count to serial port
     rise_count = 0;                         // Reset rising edge count
-    attachInterrupt(S2, falling, FALLING);  // Attach falling edge Interrupt to detect next press of switch
-    digitalWrite(RED_LED,LOW);              // turn RED LED off to indicate switch release
+    if (digitalRead(S2)) {
+      attachInterrupt(S2, falling, FALLING);  // Attach falling edge Interrupt to detect next press of switch
+      digitalWrite(RED_LED,LOW);              // turn RED LED off to indicate switch release
+    }
   }
   
   // Service Switch pressed action
